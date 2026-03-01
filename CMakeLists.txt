@@ -5,10 +5,10 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(notes
         src/main.cpp
-        src/NotesApp.cpp
-        src/NotesApp.h
-        src/Cli.cpp
-        src/Cli.h
+        src/app/NotesApp.cpp
+        src/app/NotesApp.h
+        src/cli/Cli.cpp
+        src/cli/Cli.h
         src/model/Note.h)
 
 target_include_directories(notes PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/external)
