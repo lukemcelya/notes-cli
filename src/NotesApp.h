@@ -1,35 +1,33 @@
 #ifndef NOTESAPP_H
 #define NOTESAPP_H
 
+#include "model/Note.h"
+
 #include <map>
 #include <string>
 
 class NotesApp
 {
 public:
-  struct Note
-  {
-    std::string title;
-    std::string body;
-  };
+  using NoteId = int;
 
 private:
-  std::map<int, Note> m_notes;
-  int m_nextId;
+  std::map<NoteId, Note> m_notes;
+  NoteId m_nextId;
 
 public:
   NotesApp();
   void list() const;
-  [[nodiscard]] const Note* view(int id) const;
-  bool erase(int id);
-  int add(std::string title, std::string body);
-  bool edit(int id, std::string newTitle,std::string newBody);
-  [[nodiscard]] bool isValidId(int id) const;
+  [[nodiscard]] const Note* view(NoteId id) const;
+  bool erase(NoteId id);
+  NoteId add(std::string title, std::string body);
+  bool edit(NoteId id, std::string newTitle,std::string newBody);
+  [[nodiscard]] bool isValidId(NoteId id) const;
   [[nodiscard]] size_t getNoteCount() const;
 
 private:
-  Note* findMutable(int id);
-  [[nodiscard]] const Note* find(int id) const;
+  Note* findMutable(NoteId id);
+  [[nodiscard]] const Note* find(NoteId id) const;
 };
 
 #endif //NOTESAPP_H

@@ -1,4 +1,5 @@
 #include "../src/NotesApp.h"
+#include "model/Note.h"
 #include <nlohmann/json.hpp>
 
 #include <map>
@@ -26,12 +27,12 @@ void NotesApp::list() const
     std::cout << id << ": " << note.title << "\n";
 }
 
-const NotesApp::Note* NotesApp::view(const int id) const
+const Note* NotesApp::view(const NoteId id) const
 {
   return find(id);
 }
 
-bool NotesApp::erase(const int id)
+bool NotesApp::erase(const NoteId id)
 {
   if (const auto noteToErase = find(id); !noteToErase)
     return false;
@@ -51,7 +52,7 @@ int NotesApp::add(std::string title, std::string body)
   return newNoteId;
 }
 
-bool NotesApp::edit(const int id, std::string newTitle, std::string newBody)
+bool NotesApp::edit(const NoteId id, std::string newTitle, std::string newBody)
 {
   const auto noteToEdit = findMutable(id);
   if (!noteToEdit)
@@ -62,7 +63,7 @@ bool NotesApp::edit(const int id, std::string newTitle, std::string newBody)
   return true;
 }
 
-bool NotesApp::isValidId(const int id) const
+bool NotesApp::isValidId(const NoteId id) const
 {
   if (const auto noteToCheck = find(id); !noteToCheck)
     return false;
@@ -75,7 +76,7 @@ size_t NotesApp::getNoteCount() const
   return m_notes.size();
 }
 
-NotesApp::Note* NotesApp::findMutable(const int id)
+Note* NotesApp::findMutable(const NoteId id)
 {
   const auto it = m_notes.find(id);
   if (it == m_notes.end())
@@ -84,7 +85,7 @@ NotesApp::Note* NotesApp::findMutable(const int id)
   return &it->second;
 }
 
-const NotesApp::Note* NotesApp::find(const int id) const
+const Note* NotesApp::find(const NoteId id) const
 {
   const auto it = m_notes.find(id);
   if (it == m_notes.end())
