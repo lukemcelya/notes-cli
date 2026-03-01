@@ -1,5 +1,5 @@
-#ifndef CPPPREP_NOTESAPP_H
-#define CPPPREP_NOTESAPP_H
+#ifndef NOTESAPP_H
+#define NOTESAPP_H
 
 #include <map>
 #include <string>
@@ -10,7 +10,6 @@ class NotesApp
 public:
   struct Note
   {
-    int id;
     std::string title;
     std::string body;
   };
@@ -25,15 +24,13 @@ public:
   [[nodiscard]] const Note* view(int id) const;
   bool erase(int id);
   int add(std::string title, std::string body);
-  bool edit(int id, std::optional<std::string> newTitle, std::optional<std::string> newBody);
+  bool edit(int id, std::string newTitle,std::string newBody);
   [[nodiscard]] bool isValidId(int id) const;
   [[nodiscard]] size_t getNoteCount() const;
 
 private:
   Note* findMutable(int id);
   [[nodiscard]] const Note* find(int id) const;
-  [[nodiscard]] int findMaxId() const;
-  void setNextId();
 };
 
-#endif //CPPPREP_NOTESAPP_H
+#endif //NOTESAPP_H

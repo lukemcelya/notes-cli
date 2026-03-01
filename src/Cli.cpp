@@ -206,18 +206,10 @@ bool Cli::runEditFlow()
   }
 
   std::string title;
-  while (title.empty()) // Title cannot be empty
-  {
-    std::cout << "Title: ";
-    std::getline(std::cin, title);
-
-    if (!title.empty()) break;
-
-    std::cout << "No title specified\n";
-  }
+  std::cout << "Title: ";
+  std::getline(std::cin, title);
 
   std::string body;
-
   std::cout << "Body: ";
   std::getline(std::cin, body);
 

@@ -1,5 +1,5 @@
-#ifndef CPPPREP_CLI_H
-#define CPPPREP_CLI_H
+#ifndef CLI_H
+#define CLI_H
 
 #include <string_view>
 #include <vector>
@@ -24,13 +24,13 @@ private:
   bool runEditFlow();
 
   int handleCommand(const std::vector<std::string>& args, bool allowPrompts);
-  int handleList() const;
-  int handleView(const std::vector<std::string>& args) const;
+  [[nodiscard]] int handleList() const;
+  [[nodiscard]] int handleView(const std::vector<std::string>& args) const;
   int handleAdd(const std::vector<std::string>& args, bool allowPrompts);
   int handleEdit(const std::vector<std::string>& args, bool allowPrompts);
-  int handleDelete(const std::vector<std::string>& args) const;
+  [[nodiscard]] int handleDelete(const std::vector<std::string>& args) const;
 
 };
 
 
-#endif //CPPPREP_CLI_H
+#endif //CLI_H

@@ -1,16 +1,15 @@
 #include "../src/NotesApp.h"
+#include <nlohmann/json.hpp>
 
 #include <map>
 #include <string>
-#include <optional>
 #include <iostream>
-#include <ranges>
 
 NotesApp::NotesApp()
   : m_notes{
-    {1, {1, "A", "Test"}},
-    {2, {2, "B", "Hello"}},
-    {3, {3, "C", "World"}}
+    {1, {"A", "Test"}},
+    {2, {"B", "Hello"}},
+    {3, {"C", "World"}}
     },
     m_nextId { 4 }
 { }
@@ -23,8 +22,8 @@ void NotesApp::list() const
     return;
   }
 
-  for (const auto& val : m_notes | std::views::values)
-    std::cout << val.id << ": " << val.title << "\n";
+  for (const auto& [id, note] : m_notes)
+    std::cout << id << ": " << note.title << "\n";
 }
 
 const NotesApp::Note* NotesApp::view(const int id) const
@@ -38,27 +37,28 @@ bool NotesApp::erase(const int id)
     return false;
 
   m_notes.erase(id);
-  setNextId();
+
   return true;
 }
 
 int NotesApp::add(std::string title, std::string body)
 {
   const auto newNoteId = m_nextId; // Saving the id to return after increment
-  m_notes[newNoteId] = Note{newNoteId, std::move(title), std::move(body)};
-  setNextId();
+  m_notes.emplace(newNoteId, Note{std::move(title), std::move(body)});
+
+  ++m_nextId;
 
   return newNoteId;
 }
 
-bool NotesApp::edit(const int id, std::optional<std::string> newTitle, std::optional<std::string> newBody)
+bool NotesApp::edit(const int id, std::string newTitle, std::string newBody)
 {
   const auto noteToEdit = findMutable(id);
   if (!noteToEdit)
     return false;
 
-  if (newTitle) noteToEdit->title = std::move(*newTitle);
-  if (newBody) noteToEdit->body = std::move(*newBody);
+  if (!newTitle.empty()) noteToEdit->title = std::move(newTitle);
+  if (!newBody.empty()) noteToEdit->body = std::move(newBody);
   return true;
 }
 
@@ -91,19 +91,4 @@ const NotesApp::Note* NotesApp::find(const int id) const
     return nullptr;
 
   return &it->second;
-}
-
-int NotesApp::findMaxId() const
-{
-  int maxId = 0;
-  for (const auto& val : m_notes | std::views::values)
-    if (val.id > maxId)
-      maxId = val.id;
-
-  return maxId;
-}
-
-void NotesApp::setNextId()
-{
-  m_nextId = findMaxId() + 1;
 }
