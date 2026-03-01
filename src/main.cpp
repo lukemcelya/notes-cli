@@ -4,7 +4,7 @@
 int main(const int argc, char* argv[])
 {
   NotesApp app;
-  Cli cli(app);
+  const Cli cli(app);
 
   return cli.run(argc, argv);
 }
