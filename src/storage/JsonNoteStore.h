@@ -1,0 +1,19 @@
+#ifndef JSONNOTESTORE_H
+#define JSONNOTESTORE_H
+
+#include <filesystem>
+#include "NotesState.h"
+
+class JsonNoteStore
+{
+public:
+  explicit JsonNoteStore(std::filesystem::path const& path);
+
+  [[nodiscard]] NotesState load() const;
+  void save(const NotesState& state);
+
+private:
+  std::filesystem::path const& m_path;
+};
+
+#endif //JSONNOTESTORE_H
