@@ -7,13 +7,13 @@
 class JsonNoteStore
 {
 public:
-  explicit JsonNoteStore(std::filesystem::path const& path);
+  explicit JsonNoteStore(std::filesystem::path path);
 
   [[nodiscard]] NotesState load() const;
   void save(const NotesState& state);
 
 private:
-  std::filesystem::path const& m_path;
+  std::filesystem::path m_path;
 };
 
 #endif //JSONNOTESTORE_H

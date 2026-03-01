@@ -1,10 +1,17 @@
 #include "app/NotesApp.h"
 #include "cli/Cli.h"
+#include "storage/JsonNoteStore.h"
 
 int main(const int argc, char* argv[])
 {
-  NotesApp app;
-  const Cli cli(app);
+  JsonNoteStore store("notes.json");
 
-  return cli.run(argc, argv);
+  auto [notes, nextId] = store.load();
+  NotesApp app(std::move(notes), nextId);
+
+  const Cli cli(app);
+  const int returnCode = cli.run(argc, argv);
+
+  store.save(NotesState(app.notes(), app.nextId()));
+  return returnCode;
 }

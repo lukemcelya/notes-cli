@@ -1,14 +1,16 @@
 #include "JsonNoteStore.h"
 
 #include <nlohmann/json.hpp>
+#include <filesystem>
 #include <fstream>
 #include <stdexcept>
 #include <algorithm>
+#include <iostream>
 
 using json = nlohmann::json;
 
-JsonNoteStore::JsonNoteStore(std::filesystem::path const& path)
-  : m_path { path }
+JsonNoteStore::JsonNoteStore(std::filesystem::path path)
+  : m_path { std::move(path) }
 { }
 
 NotesState JsonNoteStore::load() const
@@ -102,21 +104,28 @@ void JsonNoteStore::save(const NotesState& state)
   // temp file writing
   const auto tmpPath = m_path.string() + ".tmp";
 
-  std::ofstream ofs{tmpPath, std::ios::trunc};
-  if (!ofs)
-    throw std::runtime_error("Failed to open file: " + m_path.string());
+  {
+    std::ofstream ofs{tmpPath, std::ios::trunc};
+    if (!ofs)
+      throw std::runtime_error("Failed to open file: " + m_path.string());
 
-  ofs << j.dump(2) << "\n";
-  ofs.flush();
+    ofs << j.dump(2) << "\n";
+    ofs.flush();
 
-  if (!ofs)
-    throw std::runtime_error("Failed to write to file: " + m_path.string());
+    if (!ofs)
+      throw std::runtime_error("Failed to write to file: " + m_path.string());
+  }
 
   // Replace tmp
   std::error_code ec;
   std::filesystem::rename(tmpPath, m_path, ec);
   if (ec)
   {
+    std::cerr << "rename failed: " << ec.message()
+           << " (value=" << ec.value() << ")\n"
+           << "from: " << tmpPath << "\n"
+           << "to:   " << m_path.string() << "\n";
+    throw std::runtime_error("Failed to rename file: " + m_path.string());
     std::filesystem::remove(m_path, ec);
     ec.clear();
     std::filesystem::rename(tmpPath, m_path, ec);
