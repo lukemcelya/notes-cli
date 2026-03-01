@@ -6,13 +6,23 @@
 #include <iostream>
 
 NotesApp::NotesApp()
-  : m_notes{
-    {1, {"A", "Test"}},
-    {2, {"B", "Hello"}},
-    {3, {"C", "World"}}
-    },
-    m_nextId { 4 }
+  : m_nextId { 1 }
 { }
+
+NotesApp::NotesApp(std::map<NoteId, Note> notes, NoteId nextId)
+  : m_notes { std::move(notes) }
+  , m_nextId { nextId }
+{ }
+
+const std::map<NotesApp::NoteId, Note>& NotesApp::notes() const
+{
+  return m_notes;
+}
+
+NotesApp::NoteId NotesApp::nextId() const
+{
+  return m_nextId;
+}
 
 void NotesApp::list() const
 {
