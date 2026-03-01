@@ -74,10 +74,7 @@ bool NotesApp::edit(const NoteId id, std::string newTitle, std::string newBody)
 
 bool NotesApp::isValidId(const NoteId id) const
 {
-  if (const auto noteToCheck = find(id); !noteToCheck)
-    return false;
-
-  return true;
+  return find(id) != nullptr;
 }
 
 size_t NotesApp::getNoteCount() const
