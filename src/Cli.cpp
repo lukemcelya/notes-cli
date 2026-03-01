@@ -132,7 +132,7 @@ Cli::Cli(NotesApp& app) :
   m_app { app }
 { }
 
-int Cli::run(const int argc, char* argv[])
+int Cli::run(const int argc, char* argv[]) const
 {
   if (argc == 1)
   {
@@ -141,14 +141,16 @@ int Cli::run(const int argc, char* argv[])
   }
 
   std::vector<std::string> args;
-  for (int i{1}; i < argc; ++i)
+  for (size_t i{1}; i < argc; ++i)
     args.emplace_back(argv[i]);
 
   constexpr bool allowPrompts{false};
-  return handleCommand(args, allowPrompts);
+  if (handleCommand(args, allowPrompts) == 1)
+    printUsage("");
+  return 1;
 }
 
-void Cli::repl()
+void Cli::repl() const
 {
   while (true)
   {
@@ -165,7 +167,11 @@ void Cli::repl()
     if (args.empty()) continue;
 
     constexpr bool allowPrompts{true};
-    handleCommand(args, allowPrompts);
+    if (handleCommand(args, allowPrompts) == 1)
+    {
+      constexpr std::string_view usagePrefix = "";
+      printUsage(usagePrefix);
+    }
   }
 }
 
@@ -216,7 +222,7 @@ bool Cli::runEditFlow() const
   return m_app.edit(*editId, std::move(title), std::move(body));
 }
 
-int Cli::handleCommand(const std::vector<std::string>& args, const bool allowPrompts)
+int Cli::handleCommand(const std::vector<std::string>& args, const bool allowPrompts) const
 {
   if (args.empty())
   {
@@ -231,8 +237,6 @@ int Cli::handleCommand(const std::vector<std::string>& args, const bool allowPro
   if (command == "add") return handleAdd(args, allowPrompts);
   if (command == "edit") return handleEdit(args, allowPrompts);
   if (command == "delete") return handleDelete(args);
-
-  printUsage(m_usagePrefix);
 
   return 1;
 }

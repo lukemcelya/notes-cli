@@ -16,14 +16,14 @@ private:
 public:
   explicit Cli(NotesApp& app);
 
-  int run(int argc, char* argv[]);
+  int run(int argc, char* argv[]) const;
 
 private:
-  void repl();
+  void repl() const;
   int runAddFlow() const;
   bool runEditFlow() const;
 
-  int handleCommand(const std::vector<std::string>& args, bool allowPrompts);
+  int handleCommand(const std::vector<std::string>& args, bool allowPrompts) const;
   [[nodiscard]] int handleList() const;
   [[nodiscard]] int handleView(const std::vector<std::string>& args) const;
   int handleAdd(const std::vector<std::string>& args, bool allowPrompts) const;
