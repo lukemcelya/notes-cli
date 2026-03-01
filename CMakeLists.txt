@@ -8,6 +8,7 @@ add_executable(notes
         src/NotesApp.cpp
         src/NotesApp.h
         src/Cli.cpp
-        src/Cli.h)
+        src/Cli.h
+        src/model/Note.h)
 
 target_include_directories(notes PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/external)
