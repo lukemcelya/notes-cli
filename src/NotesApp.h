@@ -3,7 +3,6 @@
 
 #include <map>
 #include <string>
-#include <optional>
 
 class NotesApp
 {
