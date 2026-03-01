@@ -1,5 +1,5 @@
-#include "Cli.h"
-#include "NotesApp.h"
+#include "../cli/Cli.h"
+#include "../app/NotesApp.h"
 
 #include <string>
 #include <string_view>

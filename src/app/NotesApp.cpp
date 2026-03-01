@@ -1,5 +1,5 @@
-#include "../src/NotesApp.h"
-#include "model/Note.h"
+#include "../app/NotesApp.h"
+#include "../model/Note.h"
 #include <nlohmann/json.hpp>
 
 #include <map>

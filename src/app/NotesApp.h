@@ -1,7 +1,7 @@
 #ifndef NOTESAPP_H
 #define NOTESAPP_H
 
-#include "model/Note.h"
+#include "../model/Note.h"
 
 #include <map>
 #include <string>

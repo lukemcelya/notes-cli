@@ -20,16 +20,15 @@ public:
 
 private:
   void repl() const;
-  int runAddFlow() const;
-  bool runEditFlow() const;
+  [[nodiscard]] int runAddFlow() const;
+  [[nodiscard]] bool runEditFlow() const;
 
-  int handleCommand(const std::vector<std::string>& args, bool allowPrompts) const;
+  [[nodiscard]] int handleCommand(const std::vector<std::string>& args, bool allowPrompts) const;
   [[nodiscard]] int handleList() const;
   [[nodiscard]] int handleView(const std::vector<std::string>& args) const;
-  int handleAdd(const std::vector<std::string>& args, bool allowPrompts) const;
-  int handleEdit(const std::vector<std::string>& args, bool allowPrompts) const;
+  [[nodiscard]] int handleAdd(const std::vector<std::string>& args, bool allowPrompts) const;
+  [[nodiscard]] int handleEdit(const std::vector<std::string>& args, bool allowPrompts) const;
   [[nodiscard]] int handleDelete(const std::vector<std::string>& args) const;
-
 };
 
 
