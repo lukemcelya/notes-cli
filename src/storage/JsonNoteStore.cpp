@@ -121,11 +121,6 @@ void JsonNoteStore::save(const NotesState& state)
   std::filesystem::rename(tmpPath, m_path, ec);
   if (ec)
   {
-    std::cerr << "rename failed: " << ec.message()
-           << " (value=" << ec.value() << ")\n"
-           << "from: " << tmpPath << "\n"
-           << "to:   " << m_path.string() << "\n";
-    throw std::runtime_error("Failed to rename file: " + m_path.string());
     std::filesystem::remove(m_path, ec);
     ec.clear();
     std::filesystem::rename(tmpPath, m_path, ec);
