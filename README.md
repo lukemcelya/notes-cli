@@ -73,7 +73,7 @@ The project is structured with a layered design:
 - File-local parsing helpers isolated in anonymous namespaces
 
 ## Roadmap
-* [ ] JSON file persistence
+* [x] JSON file persistence
 * [ ] SQLite storage backend
 * [ ] Search functionality
 * [ ] Unit tests
