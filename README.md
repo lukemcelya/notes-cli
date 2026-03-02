@@ -60,6 +60,7 @@ exit
 - View individual notes
 - List all notes
 - Interactive REPL mode
+- Save and load from JSON
 
 ---
 
@@ -70,6 +71,7 @@ The project is structured with a layered design:
 
 - `NotesApp` - Core domain logic and note management
 - `Cli` - Command parsing, validation, and user interaction
+- `JsonNoteStore` - JSON parsing, save, load methods
 - File-local parsing helpers isolated in anonymous namespaces
 
 ## Roadmap
