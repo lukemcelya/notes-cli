@@ -22,11 +22,8 @@ use of 'std::optional', move semantics, and structured command handling.
 git clone https://github.com/lukemcelya/cli-notes.git
 cd cli-notes
 
-mkdir build
-cd build
-
-cmake ..
-cmake --build .
+cmake -S . -B build
+cmake --build build
 ```
 
 ## Usage
