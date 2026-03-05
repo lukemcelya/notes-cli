@@ -77,4 +77,4 @@ The project is structured with a layered design:
 * [x] JSON file persistence
 * [ ] SQLite storage backend
 * [ ] Search functionality
-* [ ] Unit tests
+* [x] Unit tests
