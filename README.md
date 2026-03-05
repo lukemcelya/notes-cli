@@ -1,3 +1,5 @@
+[![CMake on multiple platforms](https://github.com/lukemcelya/notes-cli/actions/workflows/cmake-multi-platform.yml/badge.svg?branch=main)](https://github.com/lukemcelya/notes-cli/actions/workflows/cmake-multi-platform.yml)
+
 # Notes CLI
 
 A modular command-line note-taking application written in modern C++.
